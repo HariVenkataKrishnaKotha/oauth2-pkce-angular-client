@@ -1,0 +1,32 @@
+<div style="font-family: system-ui; padding: 1rem;">
+  <h2>Angular Client (Auth Code + PKCE)</h2>
+
+  @if (loading) {
+    <div>Loading discovery…</div>
+  }
+
+  @if (error) {
+    <div style="color:crimson">Error: {{ error }}</div>
+  }
+
+  @if (cfg; as c) {
+    <div>
+      <p><strong>authorization_endpoint:</strong> {{ c.authorization_endpoint }}</p>
+      <p><strong>token_endpoint:</strong> {{ c.token_endpoint }}</p>
+      <p><strong>jwks_uri:</strong> {{ c.jwks_uri }}</p>
+
+      @if (!tokens.isAuthenticated) {
+        <button (click)="signIn()">Sign in</button>
+      } @else {
+        <button (click)="signOut()">Sign out</button>
+        <button (click)="callWeather()">Call Resource API</button>
+        @if (apiResponse) {
+          <pre>{{ apiResponse | json }}</pre>
+        }
+      }
+    </div>
+  }
+
+  <hr />
+  <pre>{{ env | json }}</pre>
+</div>
