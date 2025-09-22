@@ -65,6 +65,16 @@ export class HomeComponent {
       if (!this.tokens.isAuthenticated) {
         await this.tokens.refresh();
       }
+
+      //(Debug) peek at header
+      console.log('Auth Header:', this.tokens.bearer?.slice(0,30)+'...');
+      const tok = this.tokens.bearer; // "Bearer <jwt>"
+      console.log('Auth Header:', tok);
+
+      const raw = tok?.slice(7) ?? ''; // strip "Bearer "
+      const parts = raw.split('.');
+      console.log('JWT parts lengths:', parts.length, parts.map(p => p.length));
+
       const res = await fetch(`${environment.resourceApi}/api/weather`, {
         headers: { Authorization: this.tokens.bearer! }
       });

@@ -1,6 +1,9 @@
 <div style="font-family: system-ui; padding: 1rem;">
   <h3>{{ status }}</h3>
-  <div *ngIf="error" style="color:crimson">
-    {{ error }}
-  </div>
+
+  @if (error) {
+    <div style="color:crimson">
+      {{ error }}
+    </div>
+  }
 </div>
